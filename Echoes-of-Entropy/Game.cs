@@ -22,6 +22,8 @@ class Game
         _entities.Add(aKey);
         var dKey = new Key(new Vector2(560, 510), "D", GameAction.MoveRight);
         _entities.Add(dKey);
+        var space = new Key(new Vector2(620, 510), "SPACE", GameAction.Dodge);
+        _entities.Add(space);
     }
 
     static void Main()
