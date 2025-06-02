@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using Echoes_of_Entropy.Entities;
+using Echoes_of_Entropy.Input;
 using Raylib_cs;
 
 namespace Echoes_of_Entropy;
@@ -13,13 +14,13 @@ class Game
         var player = new Player(new Vector2(200, 200),
             "../../../Assets/image.png");
         _entities.Add(player);
-        var wKey = new Key(new Vector2(500, 450), "W", KeyboardKey.W);
+        var wKey = new Key(new Vector2(500, 450), "W", GameAction.MoveUp);
         _entities.Add(wKey);
-        var sKey = new Key(new Vector2(500, 510), "S", KeyboardKey.S);
+        var sKey = new Key(new Vector2(500, 510), "S", GameAction.MoveDown);
         _entities.Add(sKey);
-        var aKey = new Key(new Vector2(440, 510), "A", KeyboardKey.A);
+        var aKey = new Key(new Vector2(440, 510), "A", GameAction.MoveLeft);
         _entities.Add(aKey);
-        var dKey = new Key(new Vector2(560, 510), "D", KeyboardKey.D);
+        var dKey = new Key(new Vector2(560, 510), "D", GameAction.MoveRight);
         _entities.Add(dKey);
     }
 
