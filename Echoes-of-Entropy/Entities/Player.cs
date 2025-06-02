@@ -3,10 +3,23 @@ using Raylib_cs;
 
 namespace Echoes_of_Entropy.Entities;
 
-public class Player(Vector2 position) : IGameEntity
+public class Player : IGameEntity
 {
-    private Vector2 _position = position;
-    private const float Speed = 200f;
+    private const float Speed = 300f;
+    private Vector2 _position;
+    private readonly string _path;
+    private Texture2D _texture;
+
+    public Player(Vector2 position, string path)
+    {
+        _position = position;
+        _path = path;
+    }
+
+    public void SetUp()
+    {
+        _texture = Raylib.LoadTexture(_path);
+    }
 
     public void Update()
     {
@@ -19,6 +32,6 @@ public class Player(Vector2 position) : IGameEntity
 
     public void Draw()
     {
-        Raylib.DrawRectangle((int)_position.X, (int)_position.Y, 100, 200, Color.Purple);
+        Raylib.DrawTextureEx(_texture, _position, 0, 0.5f, Color.White);
     }
 }
