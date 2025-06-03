@@ -6,7 +6,7 @@ namespace Echoes_of_Entropy.Entities;
 
 public class Player : IGameEntity
 {
-    private const float Speed = 300f;
+    private const float Speed = 400f;
     private const float DodgeRotationSpeed = 720f;
     private Vector2 _position;
     private readonly string _path;
@@ -32,11 +32,18 @@ public class Player : IGameEntity
         var dt = Raylib.GetFrameTime();
         var input = InputManager.Instance;
         
-        if (input.IsActionDown(GameAction.MoveUp)) {_position.Y -= Speed * dt;}
-        if (input.IsActionDown(GameAction.MoveLeft)) {_position.X -= Speed * dt;}
-        if (input.IsActionDown(GameAction.MoveDown)) {_position.Y += Speed * dt;}
-        if (input.IsActionDown(GameAction.MoveRight)) {_position.X += Speed * dt;}
+        var direction = Vector2.Zero;
+        if (input.IsActionDown(GameAction.MoveUp)) {_position.Y -= 1f;}
+        if (input.IsActionDown(GameAction.MoveLeft)) {_position.X -= 1f;}
+        if (input.IsActionDown(GameAction.MoveDown)) {_position.Y += 1f;}
+        if (input.IsActionDown(GameAction.MoveRight)) {_position.X += 1f;}
 
+        if (direction != Vector2.Zero)
+        {
+            direction = Vector2.Normalize(direction);
+            _position += direction * Speed * dt;
+        }
+        
         if (input.IsActionPressed(GameAction.Dodge))
         {
             _isDodging = true;
