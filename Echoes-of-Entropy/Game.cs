@@ -1,22 +1,23 @@
 ﻿using System.Numerics;
 using Echoes_of_Entropy.Entities;
+using Echoes_of_Entropy.Graphics;
 using Echoes_of_Entropy.Input;
 using Echoes_of_Entropy.User_Interface;
 using Raylib_cs;
 
 namespace Echoes_of_Entropy;
 
-class Game
+internal class Game
 {
     private readonly UIManager _uiManager = new();
     private readonly EntityManager _entityManager = new();
+    private readonly TileMapRenderer _tileMapRenderer = new();
 
     public Game()
     {
-        
     }
 
-    static void Main()
+    private static void Main()
     {
         var game = new Game();
         game.Setup();
@@ -25,7 +26,7 @@ class Game
 
     private void Setup()
     {
-        const String gameName = "Echoes of Entropy";
+        const string gameName = "Echoes of Entropy";
         const int screen = 0;
         var screenHeight = Raylib.GetMonitorHeight(screen);
         Console.WriteLine(screenHeight);
@@ -37,8 +38,9 @@ class Game
         Raylib.InitWindow(1600, 1200, gameName);
         Raylib.SetTargetFPS(165);
 
+        _tileMapRenderer.LoadMap("../../../Assets/tilemap.json", "../../../Assets/tilemap.png");
         _entityManager.SpawnPlayer(new Vector2(200, 200), "../../../Assets/image.png");
-                
+
         _uiManager.Initialize();
     }
 
@@ -52,10 +54,11 @@ class Game
 
             _entityManager.Update();
             _uiManager.Update();
-            
+
+            _tileMapRenderer.Draw();
             _entityManager.Draw();
             _uiManager.Draw();
-            
+
             Raylib.DrawFPS(100, 500);
             Raylib.EndDrawing();
         }

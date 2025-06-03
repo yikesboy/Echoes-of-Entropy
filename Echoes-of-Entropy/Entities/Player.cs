@@ -65,6 +65,6 @@ public class Player : IGameEntity
 
     public void Draw()
     {
-        Raylib.DrawTextureEx(_texture, _position, _currentRotation, 0.5f, Color.White);
+        Raylib.DrawTextureEx(_texture, _position, _currentRotation, 0.25f, Color.White);
     }
 }
