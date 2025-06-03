@@ -8,14 +8,12 @@ namespace Echoes_of_Entropy;
 
 class Game
 {
-    private readonly List<IGameEntity> _entities = new();
     private readonly UIManager _uiManager = new();
+    private readonly EntityManager _entityManager = new();
 
     public Game()
     {
-        var player = new Player(new Vector2(200, 200),
-            "../../../Assets/image.png");
-        _entities.Add(player);
+        
     }
 
     static void Main()
@@ -36,14 +34,11 @@ class Game
         var screenRefreshRate = Raylib.GetMonitorRefreshRate(screen);
         Console.WriteLine(screenRefreshRate);
 
-        Raylib.InitWindow(800, 600, gameName);
+        Raylib.InitWindow(1600, 1200, gameName);
         Raylib.SetTargetFPS(165);
 
-        foreach (var entity in _entities)
-        {
-            entity.SetUp();
-        }
-        
+        _entityManager.SpawnPlayer(new Vector2(200, 200), "../../../Assets/image.png");
+                
         _uiManager.Initialize();
     }
 
@@ -55,14 +50,12 @@ class Game
             Raylib.ClearBackground(Color.SkyBlue);
             Raylib.DrawText("Echoes of Entropy.", 20, 20, 20, Color.RayWhite);
 
-            foreach (var entity in _entities)
-            {
-                entity.Update();
-                entity.Draw();
-            }
-            
+            _entityManager.Update();
             _uiManager.Update();
+            
+            _entityManager.Draw();
             _uiManager.Draw();
+            
             Raylib.DrawFPS(100, 500);
             Raylib.EndDrawing();
         }
