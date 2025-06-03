@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 using Echoes_of_Entropy.Entities;
 using Echoes_of_Entropy.Input;
+using Echoes_of_Entropy.User_Interface;
 using Raylib_cs;
 
 namespace Echoes_of_Entropy;
@@ -8,22 +9,13 @@ namespace Echoes_of_Entropy;
 class Game
 {
     private readonly List<IGameEntity> _entities = new();
+    private readonly UIManager _uiManager = new();
 
     public Game()
     {
         var player = new Player(new Vector2(200, 200),
             "../../../Assets/image.png");
         _entities.Add(player);
-        var wKey = new Key(new Vector2(500, 450), "W", GameAction.MoveUp);
-        _entities.Add(wKey);
-        var sKey = new Key(new Vector2(500, 510), "S", GameAction.MoveDown);
-        _entities.Add(sKey);
-        var aKey = new Key(new Vector2(440, 510), "A", GameAction.MoveLeft);
-        _entities.Add(aKey);
-        var dKey = new Key(new Vector2(560, 510), "D", GameAction.MoveRight);
-        _entities.Add(dKey);
-        var space = new Key(new Vector2(620, 510), "SPACE", GameAction.Dodge);
-        _entities.Add(space);
     }
 
     static void Main()
@@ -51,6 +43,8 @@ class Game
         {
             entity.SetUp();
         }
+        
+        _uiManager.Initialize();
     }
 
     private void Loop()
@@ -67,6 +61,8 @@ class Game
                 entity.Draw();
             }
             
+            _uiManager.Update();
+            _uiManager.Draw();
             Raylib.DrawFPS(100, 500);
             Raylib.EndDrawing();
         }

@@ -1,10 +1,11 @@
 using System.Numerics;
 using Echoes_of_Entropy.Input;
+using Echoes_of_Entropy.User_Interface;
 using Raylib_cs;
 
 namespace Echoes_of_Entropy.Entities;
 
-public class Key: IGameEntity
+public class Key: IUserInterfaceElement
 {
     private readonly Vector2 _position;
     private readonly string _labelText;
@@ -16,11 +17,6 @@ public class Key: IGameEntity
         _position = position;
         _labelText = labelText;
         _gameAction = gameAction;
-    }
-    
-    public void SetUp()
-    {
-        // Nothing to do.
     }
     public void Update()
     {
