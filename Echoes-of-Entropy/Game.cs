@@ -12,9 +12,11 @@ internal class Game
     private readonly UIManager _uiManager = new();
     private readonly EntityManager _entityManager = new();
     private readonly TileMapRenderer _tileMapRenderer = new();
+    private Camera _camera;
 
     public Game()
     {
+        _camera = new Camera(new Vector2(1600, 1200), Vector2.Zero, 1.0f);
     }
 
     private static void Main()
@@ -48,6 +50,9 @@ internal class Game
     {
         while (!Raylib.WindowShouldClose())
         {
+            var playerPos = _entityManager.GetPlayerPosition();
+            if (playerPos.HasValue) _camera.Update(playerPos.Value, Raylib.GetFrameTime());
+
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.SkyBlue);
             Raylib.DrawText("Echoes of Entropy.", 20, 20, 20, Color.RayWhite);
@@ -55,6 +60,7 @@ internal class Game
             _entityManager.Update();
             _uiManager.Update();
 
+            Raylib.BeginMode2D(_camera.GetCamera2D());
             _tileMapRenderer.Draw();
             _entityManager.Draw();
             _uiManager.Draw();
