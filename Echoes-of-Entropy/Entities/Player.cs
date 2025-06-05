@@ -33,10 +33,10 @@ public class Player : IGameEntity
         var input = InputManager.Instance;
 
         var direction = Vector2.Zero;
-        if (input.IsActionDown(GameAction.MoveUp)) _position.Y -= 1f;
-        if (input.IsActionDown(GameAction.MoveLeft)) _position.X -= 1f;
-        if (input.IsActionDown(GameAction.MoveDown)) _position.Y += 1f;
-        if (input.IsActionDown(GameAction.MoveRight)) _position.X += 1f;
+        if (input.IsActionDown(GameAction.MoveUp)) direction.Y -= 1f;
+        if (input.IsActionDown(GameAction.MoveLeft)) direction.X -= 1f;
+        if (input.IsActionDown(GameAction.MoveDown)) direction.Y += 1f;
+        if (input.IsActionDown(GameAction.MoveRight)) direction.X += 1f;
 
         if (direction != Vector2.Zero)
         {
@@ -65,7 +65,7 @@ public class Player : IGameEntity
 
     public void Draw()
     {
-        Raylib.DrawTextureEx(_texture, _position, _currentRotation, 0.25f, Color.White);
+        Raylib.DrawTextureEx(_texture, _position, _currentRotation, 0.35f, Color.White);
     }
 
     public Vector2 GetPosition()
