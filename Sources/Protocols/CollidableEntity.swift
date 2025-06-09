@@ -1,0 +1,1 @@
+protocol CollidableEntitiy: Entitiy, Collidable {}
