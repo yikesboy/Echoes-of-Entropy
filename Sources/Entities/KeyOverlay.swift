@@ -16,7 +16,7 @@ struct KeyOverlay: Entity {
         self.gameAction = gameAction
     }
 
-    mutating func update(inputState: InputState) {
+    mutating func update(inputState: InputState, deltaTime: Float) {
         isActive = inputState.isActionDown(gameAction)
     }
 

@@ -7,7 +7,7 @@ struct SolidBackground: Entity {
         Raylib.clearBackground(color)
     }
 
-    mutating func update(inputState: InputState) {
+    mutating func update(inputState: InputState, deltaTime: Float) {
 
     }
 }
