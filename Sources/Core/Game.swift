@@ -37,15 +37,19 @@ final class Game {
                 gameAction: action)
             scene.entities.append(key)
         }
+        let player = Player(
+            position: Vector2(x: Float(screenWidth / 2), y: Float(screenHeight / 2)))
+        scene.entities.append(player)
 
         sceneManager.loadScene(scene)
     }
 
     private func loop() {
         while Raylib.windowShouldClose == false {
+            let deltaTime = Raylib.getFrameTime()
             inputManager.updateState(&inputState)
             if var scene = sceneManager.currentScene {
-                updateSystem.update(&scene, inputState: inputState)
+                updateSystem.update(&scene, inputState: inputState, deltaTime: deltaTime)
                 sceneManager.loadScene(scene)
             }
             renderSystem.render(sceneManager.currentScene)
