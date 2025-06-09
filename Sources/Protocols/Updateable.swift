@@ -1,3 +1,3 @@
 protocol Updateable {
-    func update()
+    mutating func update(inputState: InputState)
 }

@@ -1,0 +1,3 @@
+protocol Entity: Drawable, Updateable {
+  
+}
