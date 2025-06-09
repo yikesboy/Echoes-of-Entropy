@@ -1,4 +1,4 @@
-enum GameAction {
+enum GameAction: CaseIterable {
     case moveUp
     case moveDown
     case moveLeft
