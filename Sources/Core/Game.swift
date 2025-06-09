@@ -2,9 +2,10 @@ import Raylib
 
 final class Game {
     private let inputManager: InputSystem
+    private var inputState: InputState
 
     init() {
-        inputManager = InputManager()
+        self.inputManager = InputManager()
     }
 
     func run() {
@@ -23,6 +24,7 @@ final class Game {
 
     private func loop() {
         while Raylib.windowShouldClose == false {
+            inputManager.updateState(inputState)
             Raylib.beginDrawing()
             Raylib.clearBackground(.skyBlue)
             Raylib.drawFPS(100, 100)
