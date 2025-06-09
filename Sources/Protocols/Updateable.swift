@@ -1,0 +1,3 @@
+protocol Updateable {
+    func update()
+}
