@@ -1,11 +1,15 @@
 import Raylib
 
-@main
 final class Game {
-    static func main() {
-        let game = Game()
-        game.setup()
-        game.loop()
+    private let inputManager: InputSystem
+
+    init() {
+        inputManager = InputManager()
+    }
+
+    func run() {
+        setup()
+        loop()
     }
 
     private func setup() {
@@ -14,7 +18,7 @@ final class Game {
         let screenHeight: Int32 = 450
         let targetFPS: Int32 = 165
         Raylib.initWindow(screenWidth, screenHeight, gameName)
-        Raylib.setTargetFPS(targetFPS)
+        //Raylib.setTargetFPS(targetFPS)
     }
 
     private func loop() {
