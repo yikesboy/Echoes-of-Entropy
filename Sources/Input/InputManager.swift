@@ -1,6 +1,6 @@
 import Raylib
 
-final class InputManager {
+final class InputManager: InputSystem {
     private var keyBindings: [GameAction: KeyboardKey]
 
     init() {
@@ -19,5 +19,11 @@ final class InputManager {
             return false
         }
         return Raylib.isKeyPressed(key)
+    }
+
+    func updateState(_ state: inout InputState) {
+        for (action, _) in keyBindings {
+            state.update(action: action, isActive: isActionDown(action))
+        }
     }
 }
