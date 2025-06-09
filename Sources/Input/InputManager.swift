@@ -1,10 +1,14 @@
 import Raylib
 
 final class InputManager: InputSystem {
-    private var keyBindings: [GameAction: KeyboardKey]
+    private var keyBindings: [GameAction: KeyboardKey] = [:]
 
     init() {
-        keyBindings = [:]
+        keyBindings[.moveUp] = KeyboardKey.letterW
+        keyBindings[.moveDown] = KeyboardKey.letterS
+        keyBindings[.moveLeft] = KeyboardKey.letterA
+        keyBindings[.moveRight] = KeyboardKey.letterD
+        keyBindings[.moveDodge] = KeyboardKey.space
     }
 
     func isActionDown(_ action: GameAction) -> Bool {
