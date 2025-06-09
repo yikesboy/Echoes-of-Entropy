@@ -30,4 +30,8 @@ final class InputManager: InputSystem {
             state.update(action: action, isActive: isActionDown(action))
         }
     }
+
+    func getKey(for action: GameAction) -> KeyboardKey? {
+        return keyBindings[action]
+    }
 }
