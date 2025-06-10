@@ -6,6 +6,7 @@ final class Game {
     private var inputState: InputState
     private let updateSystem: UpdateSystem
     private let renderSystem: RenderSystem
+    private let resourceManager: ResourceManager
 
     init() {
         self.sceneManager = SceneManager()
@@ -13,6 +14,7 @@ final class Game {
         self.inputState = InputState()
         self.updateSystem = UpdateSystem()
         self.renderSystem = RenderSystem()
+        self.resourceManager = ResourceManager()
     }
 
     func run() {
@@ -22,24 +24,28 @@ final class Game {
 
     private func setup() {
         let gameName: String = "Echoes of Entropy"
-        let screenWidth: Int32 = 800
-        let screenHeight: Int32 = 450
+        let screenWidth: Int32 = 1200
+        let screenHeight: Int32 = 600
 
         Raylib.initWindow(screenWidth, screenHeight, gameName)
         var scene = GameState()
 
-        let bg = SolidBackground(color: .blue)
-        scene.entities.append(bg)
-        for (index, action) in GameAction.allCases.enumerated() {
-            let position = Vector2(x: Float(index * 100), y: 100.0)
-            let key = KeyOverlay(
-                position: position, label: inputManager.getKey(for: action)?.description ?? "",
-                gameAction: action)
-            scene.entities.append(key)
+        do {
+            if let tmm = try resourceManager.loadTileMapModel(
+                from: "/home/lukas/Uni/Computer-Games/swift-eoe/Assets/TileMap/tilemap"
+            ) {
+                let tileMap = TileMap(model: tmm)
+                scene.add(tileMap)
+            }
+        } catch {
+            print(error.description)
         }
+
+        let bg = SolidBackground(color: .blue)
         let player = Player(
             position: Vector2(x: Float(screenWidth / 2), y: Float(screenHeight / 2)))
-        scene.entities.append(player)
+        scene.add(bg)
+        scene.add(player)
 
         sceneManager.loadScene(scene)
     }
