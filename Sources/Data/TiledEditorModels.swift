@@ -2,7 +2,7 @@ import Raylib
 
 enum TiledLayerType: String, Decodable {
     case tile = "tilelayer"
-    case object = "objectlayer"
+    case object = "objectgroup"
     //case image = "imagelayer"
     //case group = "grouplayer"
 }
@@ -11,7 +11,7 @@ struct TileMapModel: Decodable {
     let compressionlevel: Int
     let height: Int
     let infinite: Bool
-    let layers: [TileLayer]
+    let layers: [AnyLayer]
     let nextlayerid: Int
     let nextobjectid: Int
     let orientation: String
@@ -65,4 +65,30 @@ struct TiledObject: Decodable {
 struct TileSet: Decodable {
     let firstgid: Int
     let source: String
+}
+
+struct AnyLayer: Decodable {
+    let layer: Any
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let type = try container.decode(String.self, forKey: .type)
+
+        switch type {
+        case TiledLayerType.tile.rawValue:
+            self.layer = try TileLayer(from: decoder)
+        case TiledLayerType.object.rawValue:
+            self.layer = try ObjectLayer(from: decoder)
+        default:
+            throw DecodingError.dataCorruptedError(
+                forKey: .type,
+                in: container,
+                debugDescription: "Unknown layer type: \(type)"
+            )
+        }
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case type
+    }
 }
