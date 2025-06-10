@@ -1,12 +1,13 @@
 import Raylib
 
 struct KeyOverlay: Entity {
-
     private var position: Vector2
     private var size: Vector2
     private var label: String
     private var isActive: Bool
     private let gameAction: GameAction
+
+    let renderLayer: RenderLayer = .ui
 
     init(position: Vector2, label: String, gameAction: GameAction) {
         self.position = position
