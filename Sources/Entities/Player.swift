@@ -2,7 +2,9 @@ import Raylib
 
 struct Player: Entity {
     private var position: Vector2
+    private var size: Vector2 = Vector2(x: 50, y: 100)
     private let speed: Float = 250.0
+    let renderLayer: RenderLayer = .characters
 
     init(position: Vector2) {
         self.position = position
@@ -24,6 +26,7 @@ struct Player: Entity {
     }
 
     func draw() {
-        Raylib.drawRectangle(Int32(position.x), Int32(position.y), 100, 50, .red)
+        Raylib.drawRectangle(
+            Int32(position.x), Int32(position.y), Int32(size.x), Int32(size.y), .red)
     }
 }
